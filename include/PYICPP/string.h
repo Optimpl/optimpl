@@ -16,7 +16,7 @@ the class without using the cpppy namespace.
 #include <string.h> // strcpy
 #include <type_traits> // template
 
-namespace cpppy {
+namespace PYICPP {
     class str;
 }
 

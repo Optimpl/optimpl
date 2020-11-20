@@ -1,5 +1,5 @@
 #include<iostream>
-#include "../include/CPPPY/string.h"
+#include "../include/PYICPP/string.h"
 
 
 int main() {
@@ -23,7 +23,7 @@ int main() {
 
     test = test + concatstr;
 
-    std::cout<<"Concatenation with cpppy::str with operator '=': "<<test<<std::endl;
+    std::cout<<"Concatenation with PYICPP::str with operator '=': "<<test<<std::endl;
 
     // Using +=
     // With str
@@ -32,7 +32,7 @@ int main() {
 
     test += concatstr;
 
-    std::cout<<"Concatenation with cpppy::str with operator '+=': "<<test<<std::endl;
+    std::cout<<"Concatenation with PYICPP::str with operator '+=': "<<test<<std::endl;
 
     // With std::string 
 
