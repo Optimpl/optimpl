@@ -19,4 +19,4 @@ I [mdgaziur001](https://github.com/mdgaziur) created this thing.
 
 
 ## Why the f you created this? Most of the things are already available in C++
-I created this to learn about more advanced c++ things like classes, operator overloads etc. If you don't like this, feel free to not to use this library. If you really wan't to improve this library, make a PR(Pull Request).
+I created this to learn about more advanced c++ things like classes, operator overloads etc. If you don't like this, feel free to not to use this library. If you really want to improve this library, make a PR(Pull Request).
