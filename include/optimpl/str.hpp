@@ -1,22 +1,24 @@
 
 #include <string>
 #include <string.h>
-#include <optimpl/logr.hpp>
+#include "internal/logr.hpp"
 
 namespace optimpl
 {
     class str
     {
     private:
-        char *c_string;
+        char *c_string = nullptr;
         long unsigned int string_length;
+        void freeit();
 
     public:
         str(const char *source);
         str(std::string);
+        str();
         ~str();
         void captialize();
-        int __len__();
+        int len();
         operator const char *();
         optimpl::str operator+(std::string);
         optimpl::str operator+(const char *);
@@ -45,12 +47,26 @@ optimpl::str::str(std::string source)
     memcpy(this->c_string, source.c_str(), this->string_length);
 }
 
-optimpl::str::~str()
-{
-    free(this->c_string);
+optimpl::str::str() {
+    this->c_string = (char *)malloc(0);
+    this->string_length = 0;
 }
 
-int optimpl::str::__len__()
+optimpl::str::~str()
+{
+    freeit();
+}
+
+void optimpl::str::freeit() {
+    if(this->string_length == 0 || !this->c_string) {
+        return;
+    }
+    delete[] this->c_string;
+    this->c_string = nullptr;
+    this->string_length = 0;
+}
+
+int optimpl::str::len()
 {
     return this->string_length;
 }
@@ -99,23 +115,24 @@ optimpl::str optimpl::str::operator+(const char *rval)
 void optimpl::str::operator+=(std::string rval)
 {
     int rvalLength = rval.length();
+    unsigned long int totalLength = this->string_length + rvalLength;
 
-    char newStr[this->string_length + rvalLength + 1];
+    char newStr[totalLength + 1];
 
     for (unsigned long int i = 0; i < this->string_length; i++)
     {
         newStr[i] = this->c_string[i];
     }
-    for (unsigned long int i = this->string_length, j = 0; i < this->string_length + rvalLength; i++, j++)
+    for (unsigned long int i = this->string_length, j = 0; i < totalLength; i++, j++)
     {
         newStr[i] = rval[j];
     }
-    newStr[(this->string_length + rvalLength)] = '\0';
+    newStr[totalLength] = '\0';
 
-    this->string_length = rvalLength + this->string_length;
-    free(this->c_string);
-    this->c_string = (char *)malloc(sizeof(char) * (this->string_length + rvalLength));
-    memcpy(this->c_string, newStr, (this->string_length + rvalLength));
+    freeit();
+    this->string_length = totalLength;
+    this->c_string = (char *)malloc(sizeof(char) * totalLength);
+    memcpy(this->c_string, newStr, totalLength);
 }
 
 void optimpl::str::operator+=(const char *rval)
@@ -123,23 +140,24 @@ void optimpl::str::operator+=(const char *rval)
     int rvalLength;
     for (rvalLength = 0; rval[rvalLength] != '\0'; rvalLength++)
         ;
+    unsigned long int totalLength = this->string_length + rvalLength;
 
-    char newStr[this->string_length + rvalLength + 1];
+    char newStr[totalLength + 1];
 
     for (unsigned long int i = 0; i < this->string_length; i++)
     {
         newStr[i] = this->c_string[i];
     }
-    for (unsigned long int i = this->string_length, j = 0; i < this->string_length + rvalLength; i++, j++)
+    for (unsigned long int i = this->string_length, j = 0; i < totalLength; i++, j++)
     {
         newStr[i] = rval[j];
     }
-    newStr[(this->string_length + rvalLength)] = '\0';
+    newStr[totalLength] = '\0';
 
-    this->string_length = rvalLength + this->string_length;
-    free(this->c_string);
-    this->c_string = (char *)malloc(sizeof(char) * (this->string_length + rvalLength));
-    memcpy(this->c_string, newStr, (this->string_length + rvalLength));
+    freeit();
+    this->string_length = totalLength;
+    this->c_string = (char *)malloc(sizeof(char) * totalLength);
+    memcpy(this->c_string, newStr, totalLength);
 }
 
 bool optimpl::str::operator==(std::string rval)
