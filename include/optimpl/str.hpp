@@ -57,7 +57,7 @@ optimpl::str optimpl::str::operator+(const char *rval) {
         resultString[j] = rval[abs(currentLength-j)];
     }
     resultString[totalLength + 1] = '\0';
-    optimpl::str result = resultString;
+    static optimpl::str result = resultString;
     delete [] resultString;
     return result;
 }
