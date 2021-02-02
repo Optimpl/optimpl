@@ -16,7 +16,7 @@ namespace optimpl
         int __len__();
         operator const char *();
         optimpl::str operator+(const char *);
-        optimpl::str operator+=(const char *);
+        void operator+=(const char *);
         bool operator==(const char *);
     };
 } // namespace optimpl
@@ -24,8 +24,9 @@ namespace optimpl
 optimpl::str::str(const char *source)
 {
     int len = strlen(source);
-    this->c_string = new char[len];
+    this->c_string = new char[len+1];
     memmove(this->c_string, source, len);
+    this->c_string[len] = '\0';
 }
 optimpl::str::str()
 {
@@ -60,7 +61,7 @@ optimpl::str optimpl::str::operator+(const char *rval) {
     delete [] resultString;
     return result;
 }
-optimpl::str optimpl::str::operator+=(const char *rval) {
+void optimpl::str::operator+=(const char *rval) {
     int rvalLength = strlen(rval);
     int currentLength = strlen(this->c_string);
     int totalLength = rvalLength + currentLength;
@@ -74,7 +75,6 @@ optimpl::str optimpl::str::operator+=(const char *rval) {
     }
     resultString[totalLength + 1] = '\0';
     this->c_string = resultString;
-    return *this;
 }
 bool optimpl::str::operator==(const char *rval)
 {
