@@ -12,6 +12,7 @@ namespace optimpl
     public:
         str(const char *source);
         str();
+        str(const str&);
         ~str();
         int __len__();
         operator const char *();
@@ -31,6 +32,9 @@ optimpl::str::str(const char *source)
 optimpl::str::str()
 {
     this->c_string = new char[0];
+}
+optimpl::str::str(const optimpl::str &str) {
+    this->c_string = str.c_string;
 }
 optimpl::str::~str()
 {
@@ -58,7 +62,6 @@ optimpl::str optimpl::str::operator+(const char *rval) {
     }
     resultString[totalLength + 1] = '\0';
     optimpl::str result = resultString;
-    delete [] resultString;
     return result;
 }
 void optimpl::str::operator+=(const char *rval) {
