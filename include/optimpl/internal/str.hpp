@@ -24,20 +24,10 @@ int strcmp(const char *s1, const char *s2)
     return 0;
 }
 
-void memmove(char *dest, const char *src, int size)
+void memcpy(char *dest, const char *src, int size)
 {
-
-    char *temp = new char[size];
-
-    for (int i = 0; i < size; i++)
-    {
-        temp[i] = src[i];
+    for(int i = 0; i < size; i++) {
+        dest[i] = src[i];
     }
-
-    for (int i = 0; i < size; i++)
-    {
-        dest[i] = temp[i];
-    }
-
-    delete[] temp;
+    dest[size] = '\0';
 }
