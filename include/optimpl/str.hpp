@@ -20,6 +20,7 @@ namespace optimpl
         void reverse();
         const char *c_str();
         void capitalize();
+        void size();
         // list split(const char*);
 
         unsigned int __len__() const;
