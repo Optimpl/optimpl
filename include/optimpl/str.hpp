@@ -38,41 +38,41 @@ namespace optimpl
 
 optimpl::str::str(const char *source)
 {
-    this->size = strlen(source);
-    this->c_string = new char[this->size + 1];
-    memcpy(c_string, source, this->size);
-    this->c_string[this->size] = '\0';
+    size = strlen(source);
+    c_string = new char[size + 1];
+    memcpy(c_string, source, size);
+    c_string[size] = '\0';
 }
 
 optimpl::str::str(const str &source)
     : size(source.size)
 {
-    this->c_string = new char[this->size];
-    memcpy(this->c_string, source.c_string, this->size);
-    this->c_string[this->size] = '\0';
+    c_string = new char[size];
+    memcpy(c_string, source.c_string, size);
+    c_string[size] = '\0';
 }
 
 optimpl::str::~str()
 {
-    delete[] this->c_string;
+    delete[] c_string;
 }
 
 char &optimpl::str::at(unsigned int idx) const
 {
-    if (idx < 0 || idx > this->size - 1)
+    if (idx < 0 || idx > size - 1)
     {
         throw "OutOfRangeException: Index is out of range";
     }
-    return this->c_string[idx];
+    return c_string[idx];
 }
 
 void optimpl::str::reverse()
 {
-    for (unsigned int i = 0, j = this->size - 1; i < (this->size / 2); i++, j--)
+    for (unsigned int i = 0, j = size - 1; i < (size / 2); i++, j--)
     {
-        char temp = this->c_string[i];
-        this->c_string[i] = this->c_string[j];
-        this->c_string[j] = temp;
+        char temp = c_string[i];
+        c_string[i] = c_string[j];
+        c_string[j] = temp;
     }
 }
 
@@ -82,36 +82,36 @@ void optimpl::str::reverse()
 */
 const char *optimpl::str::c_str() const
 {
-    return this->c_string;
+    return c_string;
 }
 
 void optimpl::str::capitalize()
 {
     bool isspace = false;
-    for (unsigned int i = 0; i < this->size; i++)
+    for (unsigned int i = 0; i < size; i++)
     {
-        if (this->c_string[i] == ' ')
+        if (c_string[i] == ' ')
         {
             isspace = true;
         }
         else if (isspace)
         {
-            this->c_string[i] = toupper(this->c_string[i]);
+            c_string[i] = toupper(c_string[i]);
             isspace = false;
         }
         else
         {
-            this->c_string[i] = tolower(this->c_string[i]);
+            c_string[i] = tolower(c_string[i]);
         }
     }
 }
 
 optimpl::str &optimpl::str::concat(const char *rval)
 {
-    int totalSize = this->size + strlen(rval) + 1;
-    int currentSize = this->size;
+    int totalSize = size + strlen(rval) + 1;
+    int currentSize = size;
     char *result = new char[totalSize];
-    memcpy(result, this->c_string, this->size);
+    memcpy(result, c_string, size);
 
     for (int j = currentSize; j < totalSize; j++)
     {
@@ -119,20 +119,20 @@ optimpl::str &optimpl::str::concat(const char *rval)
     }
     result[totalSize] = '\0';
 
-    delete [] this->c_string;
-    this->c_string = result;
-    this->size = totalSize;
+    delete [] c_string;
+    c_string = result;
+    size = totalSize;
     return *this;
 }
 
 unsigned int optimpl::str::__len__() const
 {
-    return this->size;
+    return size;
 }
 
 char &optimpl::str::operator[](unsigned int idx) const
 {
-    return this->at(idx);
+    return at(idx);
 }
 
 optimpl::str &optimpl::str::operator+=(const char *rval)
@@ -149,10 +149,10 @@ optimpl::str &optimpl::str::operator+=(const str &rval)
 
 bool optimpl::str::operator==(const char *rval) const
 {
-    return strcmp(this->c_string, rval) == 0;
+    return strcmp(c_string, rval) == 0;
 }
 
 bool optimpl::str::operator==(const str &rval) const
 {
-    return strcmp(this->c_string, rval.c_string) == 0;
+    return strcmp(c_string, rval.c_string) == 0;
 }
