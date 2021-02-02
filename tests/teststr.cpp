@@ -8,6 +8,23 @@
 void teststr()
 {
     optimpl::str string = "Hello World!";
+
+    /* reverse */
     assert(string == "Hello World!");
     string.reverse();
+    assert(string == "!dlroW olleH");
+    string.reverse();
+    assert(string == "Hello World!");
+
+    /* indexing */
+    assert(string.at(0)=='H');
+    assert(string.at(6)=='W');
+    assert(string[9]=='l');
+    assert(string[1]=='e');
+
+    /* length testing */
+    string += " Added string.";
+    assert(optimpl::len(string)==27);
+    string += optimpl::str(" This part is from optimpl::str");
+    assert(optimpl::len(string)==59);
 }
