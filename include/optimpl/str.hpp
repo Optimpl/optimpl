@@ -32,5 +32,6 @@ namespace optimpl
         str &operator*(unsigned int);
 
         friend std::ostream &operator<<(std::ostream &, const str &);
+        friend std::istream &operator>>(std::istream &, const str &);
     };
 } // namespace optimpl
