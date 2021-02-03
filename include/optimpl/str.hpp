@@ -9,7 +9,7 @@ namespace optimpl
 
     private:
         char *m_Buffer;
-        unsigned int size;
+        unsigned int m_Size;
 
     public:
         str(const char *);
@@ -38,18 +38,18 @@ namespace optimpl
 
 optimpl::str::str(const char *source)
 {
-    size = strlen(source);
-    m_Buffer = new char[size + 1];
-    memcpy(m_Buffer, source, size);
-    m_Buffer[size] = '\0';
+    m_Size = strlen(source);
+    m_Buffer = new char[m_Size + 1];
+    memcpy(m_Buffer, source, m_Size);
+    m_Buffer[m_Size] = '\0';
 }
 
 optimpl::str::str(const str &source)
-    : size(source.size)
+    : m_Size(source.m_Size)
 {
-    m_Buffer = new char[size];
-    memcpy(m_Buffer, source.m_Buffer, size);
-    m_Buffer[size] = '\0';
+    m_Buffer = new char[m_Size];
+    memcpy(m_Buffer, source.m_Buffer, m_Size);
+    m_Buffer[m_Size] = '\0';
 }
 
 optimpl::str::~str()
@@ -59,7 +59,7 @@ optimpl::str::~str()
 
 char &optimpl::str::at(unsigned int idx) const
 {
-    if (idx < 0 || idx > size - 1)
+    if (idx < 0 || idx > m_Size - 1)
     {
         throw "OutOfRangeException: Index is out of range";
     }
@@ -68,7 +68,7 @@ char &optimpl::str::at(unsigned int idx) const
 
 void optimpl::str::reverse()
 {
-    for (unsigned int i = 0, j = size - 1; i < (size / 2); i++, j--)
+    for (unsigned int i = 0, j = m_Size - 1; i < (m_Size / 2); i++, j--)
     {
         char temp = m_Buffer[i];
         m_Buffer[i] = m_Buffer[j];
@@ -88,7 +88,7 @@ const char *optimpl::str::c_str() const
 void optimpl::str::capitalize()
 {
     bool isspace = false;
-    for (unsigned int i = 0; i < size; i++)
+    for (unsigned int i = 0; i < m_Size; i++)
     {
         if (m_Buffer[i] == ' ')
         {
@@ -108,10 +108,10 @@ void optimpl::str::capitalize()
 
 optimpl::str &optimpl::str::concat(const char *rval)
 {
-    int totalSize = size + strlen(rval) + 1;
-    int currentSize = size;
+    int totalSize = m_Size + strlen(rval) + 1;
+    int currentSize = m_Size;
     char *result = new char[totalSize];
-    memcpy(result, m_Buffer, size);
+    memcpy(result, m_Buffer, m_Size);
 
     for (int j = currentSize; j < totalSize; j++)
     {
@@ -121,13 +121,13 @@ optimpl::str &optimpl::str::concat(const char *rval)
 
     delete [] m_Buffer;
     m_Buffer = result;
-    size = totalSize;
+    m_Size = totalSize;
     return *this;
 }
 
 unsigned int optimpl::str::__len__() const
 {
-    return size;
+    return m_Size;
 }
 
 char &optimpl::str::operator[](unsigned int idx) const
