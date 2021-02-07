@@ -34,12 +34,12 @@ namespace optimpl
         bool operator==(const char *) const;
         bool operator==(const str &) const;
 
-        friend std::ostream& operator<<(std::ostream &stream, const optiml::str string);
+        friend std::ostream& operator<<(std::ostream &stream, const optiml::str &string);
         
     };
 } // namespace optimpl
 
-std::ostream& operator<<(std::ostream &stream, const optiml::str string)
+std::ostream& operator<<(std::ostream &stream, const optiml::str &string)
 {
     stream << string.m_Buffer;
     return stream;
