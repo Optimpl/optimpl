@@ -36,7 +36,7 @@ namespace optimpl
         bool operator==(const char *) const;
         bool operator==(const str &) const;
         
-        void Get_Buffer() {return m_Buffer;}
+        char* Get_Buffer() const {return m_Buffer;}
     };
 } // namespace optimpl
 

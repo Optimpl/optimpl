@@ -24,11 +24,10 @@ void teststr()
 
     /* length testing */
     string += " Added string.";
-    assert(optimpl::len(string)==26);
+    assert(optimpl::len(string)==27);
     string += optimpl::str(" This part is from optimpl::str");
-    assert(optimpl::len(string)==57);
+    assert(optimpl::len(string)==59);
 
-    /* addition */
-    string = "";
-    assert(string + "hello" == "hello");
+    /* testing << operator */
+    std::cout << string << std::endl;
 }
