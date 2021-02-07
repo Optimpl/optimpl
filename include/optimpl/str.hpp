@@ -33,16 +33,9 @@ namespace optimpl
         str &operator*(unsigned int);
         bool operator==(const char *) const;
         bool operator==(const str &) const;
-        
-        char* Get_Buffer() const {return m_Buffer;}
     };
 } // namespace optimpl
 
-std::ostream& operator<<(std::ostream &stream, const optimpl::str &string)
-{
-    stream << string.Get_Buffer();
-    return stream;
-}
 
 optimpl::str::str(const char *source)
 {
@@ -163,4 +156,10 @@ bool optimpl::str::operator==(const char *rval) const
 bool optimpl::str::operator==(const str &rval) const
 {
     return strcmp(m_Buffer, rval.m_Buffer) == 0;
+}
+
+std::ostream& operator<<(std::ostream &stream, const optimpl::str &string)
+{
+    stream << string.c_str();
+    return stream;
 }
