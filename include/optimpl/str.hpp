@@ -33,8 +33,17 @@ namespace optimpl
         str &operator*(unsigned int);
         bool operator==(const char *) const;
         bool operator==(const str &) const;
+
+        friend std::ostream& operator<<(std::ostream &stream, const optiml::str string);
+        
     };
 } // namespace optimpl
+
+std::ostream& operator<<(std::ostream &stream, const optiml::str string)
+{
+    stream << string.m_Buffer;
+    return stream;
+}
 
 optimpl::str::str(const char *source)
 {
