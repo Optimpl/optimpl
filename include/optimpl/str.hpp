@@ -15,6 +15,7 @@ namespace optimpl
         char *concat(const char *);
 
     public:
+        str();
         str(const char *);
         str(const str &);
         ~str();
@@ -38,6 +39,12 @@ namespace optimpl
     };
 } // namespace optimpl
 
+optimpl::str::str()
+    : m_Buffer(nullptr)
+{
+    m_Buffer = new char[1];
+    m_Buffer[0] = '\0';
+}
 
 optimpl::str::str(const char *source)
 {
