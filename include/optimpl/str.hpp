@@ -9,7 +9,10 @@ namespace optimpl
 
     private:
         char *m_Buffer;
-        unsigned int m_Size;
+        unsigned int m_Size = 0;
+
+        char *empty_string();
+        char *concat(const char *);
 
     public:
         str(const char *);
@@ -20,7 +23,6 @@ namespace optimpl
         void reverse();
         const char *c_str() const;
         void capitalize();
-        str &concat(const char *);
         // list split(const char*);
 
         unsigned int __len__() const;
@@ -38,6 +40,12 @@ namespace optimpl
 
 optimpl::str::str(const char *source)
 {
+    if (*(source) == '\0')
+    {
+        m_Size = 0;
+        m_Buffer = empty_string();
+        return;
+    }
     m_Size = strlen(source);
     m_Buffer = new char[m_Size + 1];
     memcpy(m_Buffer, source, m_Size);
@@ -47,6 +55,12 @@ optimpl::str::str(const char *source)
 optimpl::str::str(const str &source)
     : m_Size(source.m_Size)
 {
+    if (*(source.c_str()) == '\0')
+    {
+        m_Size = 0;
+        m_Buffer = empty_string();
+        return;
+    }
     m_Buffer = new char[m_Size];
     memcpy(m_Buffer, source.m_Buffer, m_Size);
     m_Buffer[m_Size] = '\0';
@@ -55,6 +69,11 @@ optimpl::str::str(const str &source)
 optimpl::str::~str()
 {
     delete[] m_Buffer;
+}
+
+char *optimpl::str::empty_string()
+{
+    return new char('\0');
 }
 
 char &optimpl::str::at(unsigned int idx) const
@@ -106,7 +125,7 @@ void optimpl::str::capitalize()
     }
 }
 
-optimpl::str &optimpl::str::concat(const char *rval)
+char *optimpl::str::concat(const char *rval)
 {
     int totalSize = m_Size + strlen(rval) + 1;
     int currentSize = m_Size;
@@ -119,10 +138,7 @@ optimpl::str &optimpl::str::concat(const char *rval)
     }
     result[totalSize] = '\0';
 
-    delete [] m_Buffer;
-    m_Buffer = result;
-    m_Size = totalSize;
-    return *this;
+    return result;
 }
 
 unsigned int optimpl::str::__len__() const
@@ -137,14 +153,34 @@ char &optimpl::str::operator[](unsigned int idx) const
 
 optimpl::str &optimpl::str::operator+=(const char *rval)
 {
-    concat(rval);
+    char *result = concat(rval);
+    delete[] m_Buffer;
+    m_Buffer = new char[strlen(result) + 1];
+    m_Size = strlen(result);
+    memcpy(m_Buffer, result, m_Size);
+    m_Buffer[m_Size + 1] = '\0';
     return *this;
 }
 
 optimpl::str &optimpl::str::operator+=(const str &rval)
 {
-    concat(rval.c_str());
+    char *result = concat(rval.c_str());
+    delete[] m_Buffer;
+    m_Buffer = new char[strlen(result) + 1];
+    m_Size = strlen(result);
+    memcpy(m_Buffer, result, m_Size);
+    m_Buffer[m_Size + 1] = '\0';
     return *this;
+}
+
+optimpl::str &optimpl::str::operator+(const char *rval)
+{
+    return *(new str(concat(rval)));
+}
+
+optimpl::str &optimpl::str::operator+(const str &rval)
+{
+    return *(new str(concat(rval.c_str())));
 }
 
 bool optimpl::str::operator==(const char *rval) const
