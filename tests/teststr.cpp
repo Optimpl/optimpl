@@ -27,4 +27,7 @@ void teststr()
     assert(optimpl::len(string)==27);
     string += optimpl::str(" This part is from optimpl::str");
     assert(optimpl::len(string)==59);
+
+    /* testing << operator */
+    std::cout << string << std::endl;
 }
