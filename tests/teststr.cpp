@@ -34,4 +34,9 @@ void teststr()
 
     /* testing << operator */
     std::cout << string << std::endl;
+
+    /* testing >> operator */
+    optimpl::str s;
+    std::cin >> s;
+    std::cout << s << std::endl;
 }
