@@ -32,6 +32,9 @@ void teststr()
     string = "";
     assert(string + "Hello" == "Hello");
 
+    /* != */
+    assert(string != "");
+
     /* testing << operator */
     std::cout << string << std::endl;
 
