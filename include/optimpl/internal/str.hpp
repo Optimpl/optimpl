@@ -1,6 +1,6 @@
-int strlen(const char *target)
+size_t strlen(const char *target)
 {
-    int len = 0;
+    size_t len = 0;
     for (len = 0; target[len] != '\0'; len++)
         ;
     return len;
