@@ -36,24 +36,26 @@ namespace optimpl
         str &operator*(size_t);
         bool operator==(const char *) const;
         bool operator==(const str &) const;
+        bool operator!=(const char *) const;
+        bool operator!=(const str &) const;
 
-        friend std::ostream& operator<<(std::ostream &, const optimpl::str &);
-        friend std::istream& operator>>(std::istream &, optimpl::str &);
+        friend std::ostream &operator<<(std::ostream &, const optimpl::str &);
+        friend std::istream &operator>>(std::istream &, optimpl::str &);
     };
 
-    std::ostream& operator<<(std::ostream &stream, const optimpl::str &string)
+    std::ostream &operator<<(std::ostream &stream, const optimpl::str &string)
     {
         stream << string.m_Buffer;
         return stream;
     }
 
-    std::istream& operator>>(std::istream &stream, optimpl::str &string)
+    std::istream &operator>>(std::istream &stream, optimpl::str &string)
     {
-        char* buff = new char[1000];
+        char *buff = new char[1000];
         stream >> buff;
         string.m_Size = strlen(buff);
-        string.m_Buffer = new char[string.m_Size+1];
-        memcpy(string.m_Buffer, buff, string.m_Size+1);
+        string.m_Buffer = new char[string.m_Size + 1];
+        memcpy(string.m_Buffer, buff, string.m_Size + 1);
         delete[] buff;
         return stream;
     }
@@ -221,3 +223,12 @@ bool optimpl::str::operator==(const str &rval) const
     return strcmp(m_Buffer, rval.m_Buffer) == 0;
 }
 
+bool optimpl::str::operator!=(const char *rval) const
+{
+    return strcmp(m_Buffer, rval) != 0;
+}
+
+bool optimpl::str::operator!=(const str &rval) const
+{
+    return strcmp(m_Buffer, rval.m_Buffer) != 0;
+}
