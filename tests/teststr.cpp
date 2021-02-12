@@ -42,7 +42,7 @@ void teststr()
     string += ' ';
     assert(string == " ");
 
-
+    freopen("tests/input.txt", "r", stdin);
     /* testing << operator */
     std::cout << string << std::endl;
 
@@ -50,4 +50,5 @@ void teststr()
     optimpl::str s;
     std::cin >> s;
     std::cout << s << std::endl;
+    assert(s == "Hello");
 }
