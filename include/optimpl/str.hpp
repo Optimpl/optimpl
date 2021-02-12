@@ -53,7 +53,7 @@ namespace optimpl
 
     std::istream &operator>>(std::istream &stream, optimpl::str &string)
     {
-        char *buff = new char[1000];
+        char *buff = new char[stream.gcount()];
         stream >> buff;
         string.m_Size = strlen(buff);
         string.m_Buffer = new char[string.m_Size + 1];
