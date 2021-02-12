@@ -35,6 +35,14 @@ void teststr()
     /* != */
     assert(string != "");
 
+    /* + but it's char */
+    assert(string + '!' == "!");
+
+    /* += but it's char */
+    string += ' ';
+    assert(string == " ");
+
+
     /* testing << operator */
     std::cout << string << std::endl;
 
