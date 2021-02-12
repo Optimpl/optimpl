@@ -9,7 +9,7 @@ namespace optimpl
 
     private:
         char *m_Buffer;
-        unsigned int m_Size = 0;
+        size_t m_Size = 0;
 
         char *empty_string();
         char *concat(const char *);
@@ -20,20 +20,20 @@ namespace optimpl
         str(const str &);
         ~str();
 
-        char &at(unsigned int) const;
+        char &at(size_t) const;
         void reverse();
         const char *c_str() const;
         void capitalize();
         // list split(const char*);
 
-        unsigned int __len__() const;
+        size_t __len__() const;
 
-        char &operator[](unsigned int) const;
+        char &operator[](size_t) const;
         str &operator+=(const char *);
         str &operator+=(const str &);
         str &operator+(const char *);
         str &operator+(const str &);
-        str &operator*(unsigned int);
+        str &operator*(size_t);
         bool operator==(const char *) const;
         bool operator==(const str &) const;
 
@@ -104,7 +104,7 @@ char *optimpl::str::empty_string()
     return new char('\0');
 }
 
-char &optimpl::str::at(unsigned int idx) const
+char &optimpl::str::at(size_t idx) const
 {
     if (idx < 0 || idx > m_Size - 1)
     {
@@ -115,7 +115,7 @@ char &optimpl::str::at(unsigned int idx) const
 
 void optimpl::str::reverse()
 {
-    for (unsigned int i = 0, j = m_Size - 1; i < (m_Size / 2); i++, j--)
+    for (size_t i = 0, j = m_Size - 1; i < (m_Size / 2); i++, j--)
     {
         char temp = m_Buffer[i];
         m_Buffer[i] = m_Buffer[j];
@@ -135,7 +135,7 @@ const char *optimpl::str::c_str() const
 void optimpl::str::capitalize()
 {
     bool isspace = false;
-    for (unsigned int i = 0; i < m_Size; i++)
+    for (size_t i = 0; i < m_Size; i++)
     {
         if (m_Buffer[i] == ' ')
         {
@@ -169,12 +169,12 @@ char *optimpl::str::concat(const char *rval)
     return result;
 }
 
-unsigned int optimpl::str::__len__() const
+size_t optimpl::str::__len__() const
 {
     return m_Size;
 }
 
-char &optimpl::str::operator[](unsigned int idx) const
+char &optimpl::str::operator[](size_t idx) const
 {
     return at(idx);
 }
