@@ -39,7 +39,7 @@ void teststr()
     assert(string + '!' == "!");
 
     /* += but it's char */
-    string += ' ';
+    string += ' ';              // FIXME: double free in tcache 2 when not using cin or cout (yep, like the quantum world :))
     assert(string == " ");
 
     freopen("tests/input.txt", "r", stdin);
