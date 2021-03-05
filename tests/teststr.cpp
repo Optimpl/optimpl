@@ -13,6 +13,7 @@
 
 void teststr()
 {
+    LOG("This is some LOG messages");
     optimpl::str string = "Hello World!";
 
     /* reverse */
