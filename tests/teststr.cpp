@@ -3,7 +3,13 @@
 #include <iostream>
 #include "teststr.hpp"
 
-#define LOG(N) std::cout<<N<<std::endl;
+#define DEBUG 1 // if this is 1, then LOG works
+
+#if DEBUG == 1
+#define LOG(x) std::cout << x << std::endl;
+#else
+#define LOG(x)
+#endif
 
 void teststr()
 {
@@ -41,7 +47,8 @@ void teststr()
     /* += but it's char */
     string += ' ';              // FIXME: double free in tcache 2 when not using cin or cout (yep, like the quantum world :))
     assert(string == " ");
-
+    
+    
     freopen("tests/input.txt", "r", stdin);
     /* testing << operator */
     std::cout << string << std::endl;
@@ -50,5 +57,5 @@ void teststr()
     optimpl::str s;
     std::cin >> s;
     std::cout << s << std::endl;
-    assert(s == "Hello");
+    assert(s == "Hello"); 
 }
