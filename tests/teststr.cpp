@@ -13,50 +13,49 @@
 
 void teststr()
 {
-    LOG("This is some LOG messages");
     optimpl::str string = "Hello World!";
 
-    /* reverse */
+    /// reverse
     assert(string == "Hello World!");
     string.reverse();
     assert(string == "!dlroW olleH");
     string.reverse();
     assert(string == "Hello World!");
 
-    /* indexing */
+    /// indexing 
     assert(string.at(0)=='H');
     assert(string.at(6)=='W');
     assert(string[9]=='l');
     assert(string[1]=='e');
 
-    /* length testing */
+    /// length testing
     string += " Added string.";
     assert(optimpl::len(string)==26);
     string += optimpl::str(" This part is from optimpl::str");
     assert(optimpl::len(string)==57);
 
-    /* concat */
+    /// concat 
     string = "";
     assert(string + "Hello" == "Hello");
 
-    /* != */
+    /// != 
     assert(string != "");
 
-    /* + but it's char */
+    /// + but it's char
     assert(string + '!' == "!");
 
-    /* += but it's char */
+    /// += but it's char 
     string += ' ';              // FIXME: double free in tcache 2 when not using cin or cout (yep, like the quantum world :))
     assert(string == " ");
     
     
     freopen("tests/input.txt", "r", stdin);
-    /* testing << operator */
+    /// testing << operator 
     std::cout << string << std::endl;
 
-    /* testing >> operator */
+    /// testing >> operator 
     optimpl::str s;
     std::cin >> s;
     std::cout << s << std::endl;
-    assert(s == "Hello"); 
+    assert(s == "Hello");
 }
